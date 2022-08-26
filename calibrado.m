@@ -1,3 +1,6 @@
+% % % SCRIPT ORIGINAL: PROYECTO TTKT
+% ADAPTADO PARA TEST PARKINSON: GADOR PIÑEYRO, UNAV
+
 function [MP1,MP2, Dif] = calibrado(p1,p2)
 
 % Función para calcular las matrices de proyección para la conversión de
