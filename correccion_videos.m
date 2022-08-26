@@ -1,10 +1,12 @@
-% % % % % % % % % CORRECCI”N DE LÕNEAS
+% % % SCRIPT ORIGINAL: GADOR PI√ëEYRO, TFM PARKINSON, UNAV
+
+% % % % % % % % % CORRECCI√ìN DE L√çNEAS
 close all
 clear all
 clc
 
 path=pwd;
-carpeta=input('Introduce el n˙mero de historia clÌnica: ','s');
+carpeta=input('Introduce el n√∫mero de historia cl√≠nica: ','s');
 %cd(strcat(path,'\',carpeta)) % WINDOWS
 cd(strcat(path,'/',carpeta)) % MAC
 
