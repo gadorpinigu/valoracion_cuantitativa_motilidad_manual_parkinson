@@ -1,3 +1,6 @@
+% % % SCRIPT ORIGINAL: PROYECTO TTKT
+% ADAPTADO PARA TEST PARKINSON: GADOR PIÑEYRO, UNAV
+
 function outFile = avoidOverwrite(inFile,inPath,numDigits,startCount)
 % Function to check if a given file already exists and create a new
 % filename that can be used to avoid overwriting. New file names are
