@@ -3,9 +3,6 @@
 
 function p = correlacion(A, n_fig)
 
-r = 4; % radio de búsqueda del punto bueno en el entorno del punto aproximado
-
-
 
 %--------------------------------------------------------------------------
 % 1. LEE LAS IMÁGENES Y HACE LA CORRELACIÓN
@@ -27,8 +24,8 @@ imshow(uint8(A));
         % pide la posición aproximada del punto
         [x0,y0] = ginput(1);
         % busca la posición del centroide del punto
-        p(i,:) = contrasteJ(x0,y0,A,r,r);
-    
+        p(i,1) = x0;
+        p(i,2)=y0;
     % muestra la posición calculada
     figure(2)
     figure(n_fig)
