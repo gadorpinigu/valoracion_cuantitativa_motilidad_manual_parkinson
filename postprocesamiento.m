@@ -1,3 +1,5 @@
+% % % SCRIPT ORIGINAL: GADOR PIÑEYRO, TFM PARKINSON, UNAV
+
 % % % % % % % % % % POST PROCESAMIENTO % % % % % % % % % %
 
 close all
