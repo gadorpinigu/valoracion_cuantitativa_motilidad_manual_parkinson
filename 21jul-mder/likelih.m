@@ -1,0 +1,9 @@
+datos=open('21jul-mder_Tarea1_Cam1_corregidoDLC_resnet50_28jul-ind-mderechaJul18shuffle1_7000.csv')
+%%
+data=datos.data
+colnam=datos.colheaders
+plot(data(:,4),'*-')
+%%
+dif=max(data(:,4))-min(data(:,4))
+figure(2)
+boxplot(data(:,4))
