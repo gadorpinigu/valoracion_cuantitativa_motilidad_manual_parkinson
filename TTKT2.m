@@ -1,3 +1,6 @@
+% % % SCRIPT ORIGINAL: PROYECTO TTKT
+% ADAPTADO PARA TEST PARKINSON: GADOR PI√ëEYRO, UNAV
+
 % Begin initialization code - DO NOT EDIT
 function varargout = TTKT2(varargin)
     
@@ -31,7 +34,7 @@ function TTKT2_OpeningFcn(hObject, ~, handles, varargin)
 % imaqregister('C:\Program Files (x86)\TIS IMAQ for MATLAB R2013b\x64\TISImaq_R2013.dll')
 % ver http://www.theimagingsource.com/support/documentation/ic-matlab-2013-extension/
 
-% PARTE GENERADA AUTOM¡TICAMENTE
+% PARTE GENERADA AUTOM√ÅTICAMENTE
 % Choose default command line output for TTKT2
     handles.output = hObject;
 % Update handles structure
@@ -45,7 +48,7 @@ function TTKT2_OpeningFcn(hObject, ~, handles, varargin)
     %set(handles.figure1, 'Position', get(0, 'Screensize')); % metido por
     %Alejandro para aumentar la ventana. Lo quito porque fastidia.
     dir_res = 'C:\Users\imed\Desktop\ttkt_neuro\RESULTADOS\';
-    sb = [1 3]; %de las cuatro soluciones, las dos m·s consistentes
+    sb = [1 3]; %de las cuatro soluciones, las dos m√°s consistentes
     imaqreset;
     mi_axes = {handles.axes1 handles.axes2};
 
@@ -55,13 +58,13 @@ function TTKT2_OpeningFcn(hObject, ~, handles, varargin)
     vid{1} = TTK_videoinput(1);
     vid{2} = TTK_videoinput(2);
     
-% Inicia las c·maras, que quedan pendientes de disparo con trigger
+% Inicia las c√°maras, que quedan pendientes de disparo con trigger
 
     start(vid{1});
     start(vid{2});
 
 
-% muestra los vÌdeos en la interfaz
+% muestra los v√≠deos en la interfaz
 %cb_live_Callback(hObject, eventdata, handles);
     
     for i = 1:2       
@@ -93,10 +96,10 @@ end
 function PB_calibrar_Callback(hObject, ~, handles)
 
     global vid Dif sb;
-% saca dos im·genes de las c·maras
+% saca dos im√°genes de las c√°maras
 
     if isempty(get(handles.txt_nhc,'String')) == 1
-        warndlg('Introduzca el n˙mero de historia clÌnica');
+        warndlg('Introduzca el n√∫mero de historia cl√≠nica');
 
         return;
     end
@@ -115,8 +118,8 @@ function PB_calibrar_Callback(hObject, ~, handles)
         mkdir(folder_name)
     end
     
-    % Si se corren las tereas 3 y 4, se aÒade la repeticion al nombre 
-    % Control de filename para evitar overwriting aÒadiendo _02,03,04...
+    % Si se corren las tereas 3 y 4, se a√±ade la repeticion al nombre 
+    % Control de filename para evitar overwriting a√±adiendo _02,03,04...
     outFile_cam1 = avoidOverwrite(strcat(get(handles.txt_nhc,'String'),'_Calibracion_Cam1.tiff'),folder_name,2,2);
     outFile_cam2 = avoidOverwrite(strcat(get(handles.txt_nhc,'String'),'_Calibracion_Cam2.tiff'),folder_name,2,2);
     name_cam1=strcat(folder_name,filesep,outFile_cam1);
@@ -126,13 +129,13 @@ function PB_calibrar_Callback(hObject, ~, handles)
     imwrite(IM{1},name_cam1)
     imwrite(IM{2},name_cam2)
     
-% % emplea la funciÛn correlacion.m para buscar los puntos. Saca la posiciÛn
+% % emplea la funci√≥n correlacion.m para buscar los puntos. Saca la posici√≥n
 % % de los puntos, ordenados, en un sistema de coordenadas centrado en la
 % % imagen y con coordenadas X e Y en el sentido convencional.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %ESTO ES LO QUE ESTABA COMENTADO PARA PROBAR CON LOS SENSORES INFRARROJOS%
-% ES LA **CALIBRACI”N** INICIAL
+% ES LA **CALIBRACI√ìN** INICIAL
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
     p1 = correlacion(IM{1},1);
@@ -146,18 +149,18 @@ function PB_calibrar_Callback(hObject, ~, handles)
 %save('centros.mat','p1','p2');
 %load('centros.mat');
 
-% la funciÛn calibrado.m devuelve las matrices de calibrado (MP1 y MP2), y
+% la funci√≥n calibrado.m devuelve las matrices de calibrado (MP1 y MP2), y
 % las diferencias entre las posiciones reales de los seis puntos y las
 % calculadas con el algoritmo
     [MP1,MP2, Dif] = calibrado(p1,p2);
 
-% Revisa la m·xima diferencia, para aceptar o no el calibrado
+% Revisa la m√°xima diferencia, para aceptar o no el calibrado
     calidad = max(max(max(Dif(sb,:,:))));
     path_calibrado=strcat(folder_name,'/calibrado.mat');
     if calidad > 0.3 %estaba en 0.3 pero lo he puesto asi para mirar una cosa
-        mensaje = sprintf('Hay diferencias de hasta %0.1f en la posiciÛn de los puntos. No se acepta el calibrado',calidad);
+        mensaje = sprintf('Hay diferencias de hasta %0.1f en la posici√≥n de los puntos. No se acepta el calibrado',calidad);
     else
-        mensaje = sprintf('Diferencias m·ximas de %0.2f en la posiciÛn de los puntos. Calibrado aceptado',calidad);
+        mensaje = sprintf('Diferencias m√°ximas de %0.2f en la posici√≥n de los puntos. Calibrado aceptado',calidad);
         save(path_calibrado,'MP1','MP2')
     end
           
@@ -169,7 +172,7 @@ function PB_calibrar_Callback(hObject, ~, handles)
     close(2);
 
 % En caso de que haya que cambiar los puntos, PARA CALIBRAR EL MANIQUI
-% comentar las lineas desde [MP1,... hasta aquÌ, y descomentar las
+% comentar las lineas desde [MP1,... hasta aqu√≠, y descomentar las
 % siguientes
 load('calibrado.mat');
 for i=1:6
@@ -177,7 +180,7 @@ for i=1:6
     pi1=[p1(i,1) p1(i,2)];  % de la imagen 1
     pi2=[p2(i,1) p2(i,2)];  % de la imagen 2
     % para poder calcular sus coordenadas en 3
-    % Utilizamos una funcÌon de 2D a 3D
+    % Utilizamos una func√≠on de 2D a 3D
     [Sol]=f2Da3D(MP1,MP2,pi1,pi2);
     Dif(:,:,i)=Sol(:,:);
 end % del for i
@@ -205,8 +208,8 @@ function PB_start_Callback(~, ~, handles)
         mkdir(folder_name)
     end
     
-    % Si se corren las tareas 3 y 4, se aÒade la repeticion al nombre 
-    % Control de filename para evitar overwriting aÒadiendo _02,03,04...
+    % Si se corren las tareas 3 y 4, se a√±ade la repeticion al nombre 
+    % Control de filename para evitar overwriting a√±adiendo _02,03,04...
 
     if strcmp(get(findobj(handles.uibuttongroup1,'Value',1),'tag'),'rb3')
     
@@ -237,10 +240,10 @@ function PB_start_Callback(~, ~, handles)
 %****************** 1. COMPROBACIONES PREVIAS******************************
 %**************************************************************************
 
-% desconecta la presentaciÛn de video en vivo
+% desconecta la presentaci√≥n de video en vivo
 % set(handles.cb_live,'value',0);
 
-% Si encuentra datos de calibraciÛn, sigue adelante. Si no, pide calibrar
+% Si encuentra datos de calibraci√≥n, sigue adelante. Si no, pide calibrar
     try
         load('calibrado.mat')   
     catch 
@@ -249,10 +252,10 @@ function PB_start_Callback(~, ~, handles)
         return;
     end
 
-% comprueba que se han rellenado los campos de n˙mero de puntos y nhc
+% comprueba que se han rellenado los campos de n√∫mero de puntos y nhc
 % si faltan datos, da un mensaje y se corta
     if isempty(get(handles.txt_np,'String')) == 1
-        warndlg('Introduzca el n˙mero de puntos');
+        warndlg('Introduzca el n√∫mero de puntos');
         set(handles.PB_stop,'Visible','off');
         set(handles.PB_start,'Visible','on');
         return;
@@ -261,7 +264,7 @@ function PB_start_Callback(~, ~, handles)
     end
 
     if isempty(get(handles.txt_nhc,'String')) == 1
-        warndlg('Introduzca el n˙mero de historia clÌnica');
+        warndlg('Introduzca el n√∫mero de historia cl√≠nica');
         set(handles.PB_stop,'Visible','off');
         set(handles.PB_start,'Visible','on');
         return;
@@ -274,27 +277,27 @@ function PB_start_Callback(~, ~, handles)
 %****************** 2. INICIALIZA VARIABLES *******************************
 %**************************************************************************
     sigo = 1;% variable para poder parar el proceso. Cuando se pulsa stop, sigo=0
-%Al no conocer el n˙mero de fotogramas que se van a capturar, se
+%Al no conocer el n√∫mero de fotogramas que se van a capturar, se
 %sobredimensionan las matrices 
     P3D = zeros(50000,12,np); %posiciones de los puntos en el sistema 3D
 %tasa=zeros(1,50000); % frame rate
-    c = zeros(2,2,50000,np);%(XY,c·mara,fotograma,punto) Posiciones en las im·genes (2D)
-    c0 = zeros(2,2,np);%(XY,c·mara,punto) Posiciones corregidas en las im·genes (2D) en cada fotograma
-    p_ant = zeros(2,2,np); % posiciones del punto en el ˙ltimo fotograma (x/y,c·mara,punto)
+    c = zeros(2,2,50000,np);%(XY,c√°mara,fotograma,punto) Posiciones en las im√°genes (2D)
+    c0 = zeros(2,2,np);%(XY,c√°mara,punto) Posiciones corregidas en las im√°genes (2D) en cada fotograma
+    p_ant = zeros(2,2,np); % posiciones del punto en el √∫ltimo fotograma (x/y,c√°mara,punto)
 %tasa=zeros(1,50000);
     t = zeros(3,50000);
-    tnf=zeros(5,50000); %variable analiza los tiempos de ejecuciÛn por cada fotograma
-    rP = 6; % radio pequeÒo de b˙squeda
-    rG = 6; % radio grande de b˙squeda
-% tamaÒo de las capturas (lo necesita despuÈs para la conversiÛn 2D->3D)
+    tnf=zeros(5,50000); %variable analiza los tiempos de ejecuci√≥n por cada fotograma
+    rP = 6; % radio peque√±o de b√∫squeda
+    rG = 6; % radio grande de b√∫squeda
+% tama√±o de las capturas (lo necesita despu√©s para la conversi√≥n 2D->3D)
     I = getsnapshot(vid{1});
     Ima = imrotate(I,180);
 %     Ima=I;
     [s_y,s_x,~] = size(Ima);
 %     cla(handles.axes3);
-%     axis(handles.axes3,[5,35,-15,15]); %tamaÒo inicial
-% gr·ficas animadas para representar desplazamientos en la direcciÛn Z.
-% Si el maniquÌ est· tumbado y con la parte alta hacia el scanner, X es
+%     axis(handles.axes3,[5,35,-15,15]); %tama√±o inicial
+% gr√°ficas animadas para representar desplazamientos en la direcci√≥n Z.
+% Si el maniqu√≠ est√° tumbado y con la parte alta hacia el scanner, X es
 % izda-dcha, Y es cabeza-pies, Z es arriba-abajo
     color = 'rgbkymc';
     set(handles.axes3,'Visible','off')
@@ -303,7 +306,7 @@ function PB_start_Callback(~, ~, handles)
 %     end
 
 
-% carpeta en la que se escribir·n los resultados
+% carpeta en la que se escribir√°n los resultados
     cl = clock;
     ANYO = num2str(cl(1,1));
     MES = num2str(cl(1,2));
@@ -321,16 +324,16 @@ function PB_start_Callback(~, ~, handles)
 %****************** 3. POSICIONES INICIALES ******************************
 %**************************************************************************
 
-% hace sendas capturas con las c·maras
+% hace sendas capturas con las c√°maras
 
-    for i=1:2 % n˙mero de c·mara
+    for i=1:2 % n√∫mero de c√°mara
         I = getsnapshot(vid{i});
         IM{i} = imrotate(I,180);
 %         IM{i}=I;
         axes(mi_axes{i}); 
         image(IM{i});%muestra la imagen
     
-            for j=1:np % n˙mero de punto
+            for j=1:np % n√∫mero de punto
                 
                 [x0,y0] = ginput(1);
                 hold on;
@@ -358,28 +361,28 @@ profile on
     nf = 0; % contador de fotogramas
     t0 = crono();
     
-% recordemos: c(XY,c·mara,fotograma,punto) Posiciones en las im·genes (2D)
-%             p_ant(x/y,c·mara,punto)  
-    while sigo == 1 % empieza una iteraciÛn hasta que se presione stop.
+% recordemos: c(XY,c√°mara,fotograma,punto) Posiciones en las im√°genes (2D)
+%             p_ant(x/y,c√°mara,punto)  
+    while sigo == 1 % empieza una iteraci√≥n hasta que se presione stop.
         tic;
         nf = nf+1;
         
-    % a. Localiza las posiciones 2D de los puntos en cada c·mara
+    % a. Localiza las posiciones 2D de los puntos en cada c√°mara
     
    
-    % hace un disparo con cada c·mara
-        trigger([vid{1} vid{2}]); %mirar si quit·ndolo se soluciona
+    % hace un disparo con cada c√°mara
+        trigger([vid{1} vid{2}]); %mirar si quit√°ndolo se soluciona
     
-    % lee el disparo de cada c·mara
-        for i = 1:2 % para cada c·mara
+    % lee el disparo de cada c√°mara
+        for i = 1:2 % para cada c√°mara
             [I, ~, d] = getdata(vid{i});
 %              I=permute(I,[2 1 3]);
 %              (size(I,1):-1:1,:,:); % SOLUCION 3
 %              IM{i}=flip(I); %SOLUCION 2
 %              IM{i}=rot90(I); %SOLUCION 1
-               IM{i} = imrotate(I,180); % rota la imagen 90∫
+               IM{i} = imrotate(I,180); % rota la imagen 90¬∫
 %                     IM{i}=I;
-t_a = d.AbsTime; % tiempo absoluto en que se hizo la adquisiciÛn
+t_a = d.AbsTime; % tiempo absoluto en que se hizo la adquisici√≥n
             t(i,nf) = t_a(4)*3600+t_a(5)*60+t_a(6)-t0;
             
             %% MIGUEL -GrabarVideo
@@ -394,21 +397,21 @@ t_a = d.AbsTime; % tiempo absoluto en que se hizo la adquisiciÛn
             
         end
 
-% % % % % %         for i = 1:2 % para cada c·mara 
+% % % % % %         for i = 1:2 % para cada c√°mara 
 % % % % % %         
 % % % % % %             for j = 1:np %itera para cada punto
-% % % % % %             % busca la posiciÛn del punto poniendo como aproximacion
-% % % % % %             % inicial la del ˙ltimo punto encontrado
+% % % % % %             % busca la posici√≥n del punto poniendo como aproximacion
+% % % % % %             % inicial la del √∫ltimo punto encontrado
 % % % % % %                 c(:,i,nf,j) = contrasteJ(p_ant(1,i,j),p_ant(2,i,j),IM{i},rP,rG);
-% % % % % %             % almacena la posiciÛn, para emplearla en la siguiente iteraciÛn
+% % % % % %             % almacena la posici√≥n, para emplearla en la siguiente iteraci√≥n
 % % % % % %                 p_ant(:,i,j) = c(:,i,nf,j);
 % % % % % %             end % del j en cada punto
-% % % % % %         end % del i en cada c·mara
+% % % % % %         end % del i en cada c√°mara
         tnf(1,nf)=toc; 
         tic;
     % b. muestra uno de cada cinco fotogramas
         if mod(nf,5) == 0
-            for i = 1:2 % para cada c·mara
+            for i = 1:2 % para cada c√°mara
                 axes(mi_axes{i});
                 image(IM{i});
                 set(gca, 'visible', 'off');
@@ -417,16 +420,16 @@ t_a = d.AbsTime; % tiempo absoluto en que se hizo la adquisiciÛn
 % % %                     plot(c(1,i,nf,j),c(2,i,nf,j),'o','Color',color(j));
 % % %                 end % del j en puntos
                 hold off;
-            end % del i en c·maras
+            end % del i en c√°maras
         
         end % del if mod(nf,5)==0;
     tnf(2,nf)=toc; 
     tic;
-    % corregimos el desfase entre c·maras
+    % corregimos el desfase entre c√°maras
         t(3,nf) = min([t(1,nf) t(2,nf)]); %el menor de los dos tiempos t(1,nf) o t(2,nf)
-    % c0(XY,c·mara,punto): posiciones en el tiempo t(3,nf)
+    % c0(XY,c√°mara,punto): posiciones en el tiempo t(3,nf)
     %delta=1;
-        if nf > 1 % sÛlo corregimos a partir del segundo fotograma
+        if nf > 1 % s√≥lo corregimos a partir del segundo fotograma
             if t(2,nf) > t(1,nf)
                 delta = (t(1,nf)-t(2,nf-1))/(t(2,nf)-t(2,nf-1));
                 c0(:,1,:) = c(:,1,nf,:);
@@ -442,7 +445,7 @@ t_a = d.AbsTime; % tiempo absoluto en que se hizo la adquisiciÛn
         end
 
     % c. calcula las posiciones 3D
-    % recordemos: c(XY,c·mara,fotograma,punto) Posiciones en las im·genes (2D)
+    % recordemos: c(XY,c√°mara,fotograma,punto) Posiciones en las im√°genes (2D)
     % antes, tiene que convertir de coord matlab a normales
         for i = 1:np % por cada punto
         % invertimos las coordenadas y
@@ -452,7 +455,7 @@ t_a = d.AbsTime; % tiempo absoluto en que se hizo la adquisiciÛn
             c0(2,:,i) = c0(2,:,i)-s_y/2;
             Sol = f2Da3D(MP1,MP2,c0(:,1,i),c0(:,2,i));
             P3D(nf,:,i) = Sol(:);
-        end % de la iteraciÛn en puntos
+        end % de la iteraci√≥n en puntos
         tnf(3,nf)=toc;
         tic;
     
@@ -518,12 +521,12 @@ t_a = d.AbsTime; % tiempo absoluto en que se hizo la adquisiciÛn
 profile off
 tnf(5,:)=tnf(1,:)+tnf(2,:)+tnf(3,:)+tnf(4,:);
 tfotograma=tnf(:,1:nf);
-% para las c·maras
+% para las c√°maras
 %     stop(vid{1});
 %     stop(vid{2});
 
 
-% soluciÛn final
+% soluci√≥n final
     Salida = P3D(1:nf, [sb sb+4 sb+8], :);
     name = strcat(dir_res,f_salida,'.mat');
     tiempo(:) = t(3,1:nf);
@@ -565,7 +568,7 @@ function PB_stop_Callback(hObject, ~, handles)
     global sigo mi_axes vid seguir;
     sigo = 0;
     seguir = 0;
-% muestra los vÌdeos en la interfaz
+% muestra los v√≠deos en la interfaz
     for i = 1:2
         axes(mi_axes{i})
         vidRes = vid{i}.VideoResolution;
@@ -611,7 +614,7 @@ end
 function salir_Callback(~, ~, ~)
 
     global vid;
-% para las c·maras
+% para las c√°maras
     stop(vid{1});
     stop(vid{2});
  
@@ -653,9 +656,9 @@ function errores(valor)
 
     switch valor
         case 1
-            errordlg('Faltan datos de calibrado: pulse CALIBRAR','Error datos calibraciÛn');
+            errordlg('Faltan datos de calibrado: pulse CALIBRAR','Error datos calibraci√≥n');
         case 2
-            errordlg('Error al borrar los datos','Error lÌmites');
+            errordlg('Error al borrar los datos','Error l√≠mites');
         case 3
             errordlg('File not found','File Error');
         otherwise
@@ -672,7 +675,7 @@ function pushbutton7_Callback(~, ~, ~)
 % handles    structure with handles and user data (see GUIDATA)
     try
         lim = [0, 0];
-        uiwait(msgbox('Se han borrado los lÌmites','LÌmites'));
+        uiwait(msgbox('Se han borrado los l√≠mites','L√≠mites'));
     catch
         errores(2);
     end
@@ -686,7 +689,7 @@ function pushbutton8_Callback(~, ~, ~)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
     global vid Dif sb;
-% saca dos im·genes de las c·maras
+% saca dos im√°genes de las c√°maras
     for i=1:2
         I = double(getsnapshot(vid{i}));
 %         IM{I}=I;
@@ -704,17 +707,17 @@ function pushbutton8_Callback(~, ~, ~)
 %save('centros.mat','p1','p2');
 %load('centros.mat');
 
-% la funciÛn calibrado.m devuelve las matrices de calibrado (MP1 y MP2), y
+% la funci√≥n calibrado.m devuelve las matrices de calibrado (MP1 y MP2), y
 % las diferencias entre las posiciones reales de los seis puntos y las
 % calculadas con el algoritmo
     [~,~, Dif] = calibrado(p1,p2);
 
-% Revisa la m·xima diferencia, para aceptar o no el calibrado
+% Revisa la m√°xima diferencia, para aceptar o no el calibrado
     calidad = max(max(max(Dif(sb,:,:))));
     if calidad > 0.3
-        mensaje = sprintf('Hay diferencias de hasta %0.1f en la posiciÛn de los puntos. No se acepta el calibrado',calidad);
+        mensaje = sprintf('Hay diferencias de hasta %0.1f en la posici√≥n de los puntos. No se acepta el calibrado',calidad);
     else
-        mensaje = sprintf('Diferencias m·ximas de %0.2f en la posiciÛn de los puntos. Calibrado aceptado',calidad);
+        mensaje = sprintf('Diferencias m√°ximas de %0.2f en la posici√≥n de los puntos. Calibrado aceptado',calidad);
         save('calibrado.mat','MP1','MP2')
     end
 %set(handles.text1,'String',mensaje);
