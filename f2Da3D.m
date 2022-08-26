@@ -1,8 +1,11 @@
+% % % SCRIPT ORIGINAL: PROYECTO TTKT
+% ADAPTADO PARA TEST PARKINSON: GADOR PI√ëEYRO, UNAV
+
 function Sol = f2Da3D(MP1, MP2, pi1, pi2)
 
-% MP son las matrices de proyecciÛn
-% pi1 son las coordenadas XY en la c·mara 1
-% pi2 son las coordenadas XY en la c·mara 2
+% MP son las matrices de proyecci√≥n
+% pi1 son las coordenadas XY en la c√°mara 1
+% pi2 son las coordenadas XY en la c√°mara 2
 
 
 % Resolvemos el sistema 
