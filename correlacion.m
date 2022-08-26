@@ -1,3 +1,6 @@
+% % % SCRIPT ORIGINAL: PROYECTO TTKT
+% ADAPTADO PARA TEST PARKINSON: GADOR PIÑEYRO, UNAV
+
 function p = correlacion(A, n_fig)
 
 r = 4; % radio de búsqueda del punto bueno en el entorno del punto aproximado
